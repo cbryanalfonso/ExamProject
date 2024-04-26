@@ -19,7 +19,6 @@ export const useDatabaseActions = <T>(schema: SchemasType) => {
   const {useRealm} = RealmContext;
   const realm = useRealm();
   const objects = realm.objects<SyncObject<T>>(schema);
-//   const {setRealmDatabaseListener} = useSharedActions();
   const getFormattedRecordWithAction = (
     record: SyncObject<T>,
     forceSyncStatusToSyncedInModificationAction?: boolean,
@@ -39,9 +38,7 @@ export const useDatabaseActions = <T>(schema: SchemasType) => {
         _record = {
           ...existingRecord,
           ...record,
-          /**
-           * Updates by default the _syncStatus to unsynced and the _lastUpdatedDate to a more recent date.
-           */ _syncStatus: modificationSyncStatus,
+          _syncStatus: modificationSyncStatus,
           _lastUpdatedDate: new Date().toISOString(),
         };
         action = DatabaseActions.MODIFICATION;
@@ -57,7 +54,6 @@ export const useDatabaseActions = <T>(schema: SchemasType) => {
     config: AddOrUpdateRecordConfig = {},
   ) => {
     const {
-    //   triggerRealmDatabaseEvent = true,
       forceSyncStatusToSyncedInModificationAction,
     } = config;
     const {record: _record, action} = getFormattedRecordWithAction(
@@ -69,20 +65,13 @@ export const useDatabaseActions = <T>(schema: SchemasType) => {
       realm.create(
         schema,
         {
-          ..._record, // Sets the _syncStatus flag to unsynced if the record to add has the _syncStatus as undefined.
-          _syncStatus: _record._syncStatus ?? SYNC_STATUS.UNSYNCED, // Sets the _lastUpdatedDate flag with a date if the record to add has the _lastUpdatedDate as undefined.
+          ..._record, 
+          _syncStatus: _record._syncStatus ?? SYNC_STATUS.UNSYNCED,
           _lastUpdatedDate: _record._lastUpdatedDate ?? _lastUpdatedDateTemp,
         },
         Realm.UpdateMode.Modified,
       );
     });
-    // if (triggerRealmDatabaseEvent) {
-    //   setRealmDatabaseListener({
-    //     schemaName: schema,
-    //     updatedObjects: objects.toJSON(),
-    //     action,
-    //   });
-    // }
   };
   const addOrUpdateRecordsArray = (
     records: SyncObject<T>[],
@@ -114,13 +103,6 @@ export const useDatabaseActions = <T>(schema: SchemasType) => {
           },
           Realm.UpdateMode.Modified,
         );
-        // if (shouldTriggerDatabaseEvent) {
-        //   setRealmDatabaseListener({
-        //     schemaName: schema,
-        //     updatedObjects: objects.toJSON(),
-        //     action,
-        //   });
-        // }
       });
     });
   };
@@ -137,21 +119,11 @@ export const useDatabaseActions = <T>(schema: SchemasType) => {
     realm.write(() => {
       realm.delete(objects);
     });
-    // setRealmDatabaseListener({
-    //   schemaName: schema,
-    //   updatedObjects: objects.toJSON(),
-    //   action: DatabaseActions.DELETION,
-    // });
   };
   const deleteRecordsByFilter = (query: string) => {
     realm.write(() => {
       realm.delete(objects.filtered(query));
     });
-    // setRealmDatabaseListener({
-    //   schemaName: schema,
-    //   updatedObjects: objects.toJSON(),
-    //   action: DatabaseActions.DELETION,
-    // });
   };
   const deleteRecordById = (id: number | string) => {
     realm.write(() => {

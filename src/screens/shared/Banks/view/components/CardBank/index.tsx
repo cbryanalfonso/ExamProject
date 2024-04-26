@@ -1,4 +1,4 @@
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {Text, View, Image} from 'react-native';
 import React from 'react';
 import {CardBankProps} from './types';
 import {getCardBankStyles} from './styles';
