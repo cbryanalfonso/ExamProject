@@ -1,4 +1,4 @@
-import {StyleSheet, View, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
 import {HeaderProps} from './types';
 import {getHeaderStyles} from './styles';

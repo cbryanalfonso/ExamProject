@@ -1,12 +1,12 @@
 import {View} from 'react-native';
-import React, {FC, useEffect} from 'react';
+import React, {FC, useLayoutEffect} from 'react';
 import RealmProvider from './src/database/realmContext';
 import useSyncData from './src/hooks/useSyncData';
 import Navigation from './src/navigation/index';
 
 const AppContent: FC = () => {
   const {downloadData} = useSyncData();
-  useEffect(() => {
+  useLayoutEffect(() => {
     downloadData();
   }, []);
 

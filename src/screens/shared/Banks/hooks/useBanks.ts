@@ -6,11 +6,9 @@ const useBanks = () => {
   const {addOrUpdateBankArray, getAllBanks} = useBanksActions();
   const [bankData, setBankData] = useState('');
 
-  const getAllBanksData: BanksType[] = useMemo(() => {
-    return getAllBanks();
-  }, [getAllBanks()]);
+  const getAllBanksData: BanksType[] = getAllBanks();
 
-  const bankInformation = useMemo(() => {
+  const bankInformation: BanksType[] = useMemo(() => {
     if (bankData.length >= 3) {
       const filterBanks = getAllBanksData.filter(bank =>
         bank?.bankName?.toUpperCase()?.includes(bankData?.toUpperCase()),

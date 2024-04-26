@@ -2,7 +2,6 @@ import {
     TextInput, 
     View} from 'react-native';
 import React from 'react';
-// import {TextInput} from '../../../node_modules/react-native/types/index';
 import {getSearchStyles} from './styles';
 import {SearchProps} from './types';
 
