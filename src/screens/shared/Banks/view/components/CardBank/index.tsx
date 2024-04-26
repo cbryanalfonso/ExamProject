@@ -1,9 +1,8 @@
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {CardBankProps} from './types';
 import {getCardBankStyles} from './styles';
 import Card from '../../../../../../components/Card/index';
-
 const CardBank = ({age, description, bankName, url}: CardBankProps) => {
   const styles = getCardBankStyles();
   return (
@@ -20,6 +19,7 @@ const CardBank = ({age, description, bankName, url}: CardBankProps) => {
           <Text style={styles.txtTitle}>{bankName}</Text>
           <Text style={styles.txtDescription}>{description}</Text>
         </View>
+       
       </View>
     </Card>
   );

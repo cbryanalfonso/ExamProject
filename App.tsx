@@ -2,7 +2,6 @@ import {View} from 'react-native';
 import React, {FC, useEffect} from 'react';
 import RealmProvider from './src/database/realmContext';
 import useSyncData from './src/hooks/useSyncData';
-import BanksScreen from './src/screens/shared/Banks/view/screens/index';
 import Navigation from './src/navigation/index';
 
 const AppContent: FC = () => {
